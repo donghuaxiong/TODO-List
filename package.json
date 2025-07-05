@@ -1,43 +1,80 @@
 {
-  "name": "my-ts-app",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
-    "@types/jest": "^27.5.2",
-    "@types/node": "^16.18.39",
-    "@types/react": "^18.2.18",
-    "@types/react-dom": "^18.2.7",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-scripts": "5.0.1",
-    "typescript": "^4.9.5",
-    "web-vitals": "^2.1.4"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  }
+    "name": "my-ts-app",
+    "version": "0.1.0",
+    "description": "一个基于React和Electron的TODO应用",
+    "author": "Your Name",
+    "private": true,
+    "main": "electron.js",
+    "homepage": "./",
+    "dependencies": {
+        "@testing-library/jest-dom": "^5.17.0",
+        "@testing-library/react": "^13.4.0",
+        "@testing-library/user-event": "^13.5.0",
+        "@types/jest": "^27.5.2",
+        "@types/node": "^16.18.39",
+        "@types/react": "^18.2.18",
+        "@types/react-dom": "^18.2.7",
+        "antd": "^5.26.3",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0",
+        "react-scripts": "5.0.1",
+        "typescript": "^4.9.5",
+        "web-vitals": "^2.1.4"
+    },
+    "scripts": {
+        "dev": "PORT=3003 react-scripts start",
+        "build": "react-scripts build",
+        "test": "react-scripts test",
+        "eject": "react-scripts eject",
+        "electron": "NODE_ENV=development electron .",
+        "electron-dev": "concurrently \"npm run dev\" \"wait-on http://localhost:3000 && npm run electron\"",
+        "package-mac": "electron-builder --mac",
+        "package-optimized": "npm run build && electron-packager . 周报小助手-TODO-List --platform=darwin --arch=arm64 --out=dist --overwrite --electron-version=32.3.3 --ignore='^/node_modules' --ignore='^/src' --ignore='^/public' --ignore='^/\\.git' --ignore='^/static' --ignore='^/\\.DS_Store' --ignore='^/tsconfig\\.json' --ignore='^/README\\.md'",
+        "electron:build": "npm run build && electron-builder",
+        "preelectron:build": "npm prune --production"
+    },
+    "build": {
+        "appId": "com.hauxiong.todo-list",
+        "productName": "周报小助手-TODO-List",
+        "directories": {
+            "output": "dist"
+        },
+        "mac": {
+            "category": "public.app-category.productivity"
+        },
+        "files": [
+            "build/**/*",
+            "public/electron.js",
+            "package.json"
+        ]
+    },
+    "eslintConfig": {
+        "extends": [
+            "react-app",
+            "react-app/jest"
+        ]
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    },
+    "devDependencies": {
+        "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+        "@types/react": "^18.2.18",
+        "concurrently": "^7.6.0",
+        "electron": "^32.0.0",
+        "electron-builder": "^24.13.3",
+        "electron-packager": "^17.1.2",
+        "react-scripts": "5.0.1",
+        "typescript": "^4.9.5",
+        "wait-on": "^6.0.1"
+    }
 }
